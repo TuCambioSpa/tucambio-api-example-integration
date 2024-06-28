@@ -21,7 +21,7 @@ app.use('/payouts', payoutsRoute);
 app.use((error, req, res, next) => {
   console.error(`Error data`, error.response?.data);
   console.error(`Error message`, error.message);
-  res.status(500).json({
+  res.status(error.response?.status || 500).json({
     error: `Request failed. Error: ${error.message}`,
     data: error.response?.data,
   });
