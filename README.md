@@ -63,8 +63,17 @@ This Node.js project is a simple implementation for handling payouts and notific
 - Example Query Params:
     ```json
     {
-        "from": 1,
-        "to": 2
+        "from": "clp",
+        "to": "ves"
+    }
+    ```
+
+**GET /currency-exchanges/from/:fromCurrencyId/to/:toCurrencyId**
+- Example Query Params:
+    ```json
+    {
+        "fromCurrencyId": 1,
+        "toCurrencyId": 2
     }
     ```
 

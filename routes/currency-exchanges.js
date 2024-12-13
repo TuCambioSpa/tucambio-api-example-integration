@@ -53,4 +53,32 @@ router.get('/', async (req, res, next) => {
   }
 });
 
+// Get the exchange rate.
+router.get('/from/:fromCurrencyId/to/:toCurrencyId', async (req, res, next) => {
+  // Extract params => fromCurrencyId & toCurrencyId
+  const { fromCurrencyId, toCurrencyId } = req.params;
+
+  const timestamp = new Date().toUTCString();
+  const authorizationHash = generateHmacSha256Signature(timestamp);
+  const headers = {
+    'X-Date': timestamp,
+    Authorization: authorizationHash,
+  };
+
+  try {
+    const response = await api.get(
+      `/companies/currency-exchanges/from/${fromCurrencyId}/to/${toCurrencyId}`,
+      {
+        headers,
+      }
+    );
+    res.json({
+      message: 'Currency exchange list',
+      response: response.data,
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;
