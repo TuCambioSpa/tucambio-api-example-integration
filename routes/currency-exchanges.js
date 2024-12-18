@@ -56,6 +56,7 @@ router.get('/', async (req, res, next) => {
 // Get the exchange rate.
 router.get('/from/:fromCurrencyId/to/:toCurrencyId', async (req, res, next) => {
   // Extract params => fromCurrencyId & toCurrencyId
+  // Optional query param => amount
   const { fromCurrencyId, toCurrencyId } = req.params;
 
   const timestamp = new Date().toUTCString();
@@ -70,6 +71,7 @@ router.get('/from/:fromCurrencyId/to/:toCurrencyId', async (req, res, next) => {
       `/companies/currency-exchanges/from/${fromCurrencyId}/to/${toCurrencyId}`,
       {
         headers,
+        params: { amount: req.query.amount },
       }
     );
     res.json({

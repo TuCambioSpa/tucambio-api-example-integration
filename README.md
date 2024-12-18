@@ -49,6 +49,27 @@ This Node.js project is a simple implementation for handling payouts and notific
     }
     ```
 
+**POST /payouts?amount=5000**
+- Example Body:
+
+    ```json
+    {
+        "amount": 1500,
+        "fromCurrencyId": 1,
+        "toCurrencyId": 2,
+        "description": "remittance",
+        "recipient": {
+            "name": "John Doe",
+            "account_number": "01341919522567890000",
+            "account_type": "Cuenta Bancaria",
+            "bank_name": "Banesco",
+            "document_id": "12345678-1",
+            "document_type": "V"
+        }
+    }
+    ```
+- Example Body: 200
+
 **GET /payouts**
 - Example Query Params:
     ```json
