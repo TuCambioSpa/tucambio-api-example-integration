@@ -56,7 +56,6 @@ router.get('/', async (req, res, next) => {
 // Get the exchange rate.
 router.get('/from/:fromCurrencyId/to/:toCurrencyId', async (req, res, next) => {
   // Extract params => fromCurrencyId & toCurrencyId
-  // Optional query param => amount
   const { fromCurrencyId, toCurrencyId } = req.params;
 
   const timestamp = new Date().toUTCString();
@@ -71,9 +70,32 @@ router.get('/from/:fromCurrencyId/to/:toCurrencyId', async (req, res, next) => {
       `/companies/currency-exchanges/from/${fromCurrencyId}/to/${toCurrencyId}`,
       {
         headers,
-        params: { amount: req.query.amount },
       }
     );
+    res.json({
+      message: 'Currency exchange list',
+      response: response.data,
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Get a quote.
+router.get('/quote', async (req, res, next) => {
+  // Extract query params => fromCurrencyId, toCurrencyId & amount
+  const timestamp = new Date().toUTCString();
+  const authorizationHash = generateHmacSha256Signature(timestamp);
+  const headers = {
+    'X-Date': timestamp,
+    Authorization: authorizationHash,
+  };
+
+  try {
+    const response = await api.get(`/companies/currency-exchanges/quote`, {
+      headers,
+      params: req.query,
+    });
     res.json({
       message: 'Currency exchange list',
       response: response.data,
