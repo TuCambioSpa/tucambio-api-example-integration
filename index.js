@@ -2,6 +2,7 @@ const express = require('express');
 
 const currencyExchangesRoute = require('./routes/currency-exchanges');
 const payoutsRoute = require('./routes/payouts');
+const walletsRoute = require('./routes/wallets');
 
 // Create an instance of the Express application
 const app = express();
@@ -16,6 +17,9 @@ app.use('/currency-exchanges', currencyExchangesRoute);
 
 // payouts routes
 app.use('/payouts', payoutsRoute);
+
+// wallets routes
+app.use('/wallets', walletsRoute);
 
 // Catch all errors
 app.use((error, req, res, next) => {

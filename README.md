@@ -79,6 +79,9 @@ This Node.js project is a simple implementation for handling payouts and notific
         "amount": 25000
     }
     ```
+**GET /wallets**
+
+**GET /wallets/currencies/:currencyId**
 
 ## Additional Notes
 * Ensure Node.js and npm are installed on your machine.
